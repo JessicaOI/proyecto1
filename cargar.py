@@ -339,6 +339,81 @@ class Render(object):
                 self.triangle(A, B, C, texture=texture, texture_coords=(tA, tB, tC), intensity=intensity)
                 self.triangle(A, C, D, texture=texture, texture_coords=(tA, tC, tD), intensity=intensity)
 
+
+  def glObjModel2(self, filename, mtl=None, translate=(0, 0, 0), scale=(1, 1, 1), rotate=(0,0,0), texture=None):
+
+    archivo = Obj(filename)
+    archivo.read()
+    self.light = V3(0,0,1)
+    self.loadModelMatrix(translate, scale, rotate) 
+    
+    #Ciclo para recorrer las carras
+    for face in archivo.faces:
+        vcount = len(face)
+        if vcount == 3:
+            f1 = face[0][0] - 1
+            f2 = face[1][0] - 1
+            f3 = face[2][0] - 1
+            a = self.transform(V3(*archivo.vertices[f1]))
+            b = self.transform(V3(*archivo.vertices[f2]))
+            c = self.transform(V3(*archivo.vertices[f3]))
+ 
+            vnormal = norm(cross(sub(b,a), sub(c,a)))
+            intensity = dot(vnormal, self.light)
+            if intensity<0:
+                continue
+            if texture:
+                t1 = face[0][1] - 1
+                t2 = face[1][1] - 1
+                t3 = face[2][1] - 1
+                tA = V3(*archivo.texcoords[t1])
+                tB = V3(*archivo.texcoords[t2])
+                tC = V3(*archivo.texcoords[t3])
+                self.triangle(a,b,c, texture=texture, texture_coords=(tA,tB,tC), intensity=intensity)
+            else:
+                grey =round(255*intensity)
+                if grey<0:
+                    continue
+                self.triangle(a,b,c, color=color(grey,grey,grey))
+        else:
+            # assuming 4
+            f1 = face[0][0] - 1
+            f2 = face[1][0] - 1
+            f3 = face[2][0] - 1
+            f4 = face[3][0] - 1   
+
+            vertices = [
+                self.transform(V3(*archivo.vertices[f1])),
+                self.transform(V3(*archivo.vertices[f2])),
+                self.transform(V3(*archivo.vertices[f3])),
+                self.transform(V3(*archivo.vertices[f4]))
+            ]
+
+            normal = norm(cross(sub(vertices[0], vertices[1]), sub(vertices[1], vertices[2])))
+            intensity = dot(normal, self.light)
+            grey = round(255 * intensity)
+
+            A, B, C, D = vertices 
+
+            if not texture:
+                grey = round(255 * intensity)
+                if grey < 0:
+                    continue
+                self.triangle(A, B, C, color(grey, grey, grey))
+                self.triangle(A, C, D, color(grey, grey, grey))            
+            else:
+                t1 = face[0][1] - 1
+                t2 = face[1][1] - 1
+                t3 = face[2][1] - 1
+                t4 = face[3][1] - 1
+                tA = V3(*archivo.texcoords[t1],0)
+                tB = V3(*archivo.texcoords[t2],0)
+                tC = V3(*archivo.texcoords[t3],0)
+                tD = V3(*archivo.texcoords[t4],0)
+                
+                self.triangle(A, B, C, texture=texture, texture_coords=(tA, tB, tC), intensity=intensity)
+                self.triangle(A, C, D, texture=texture, texture_coords=(tA, tC, tD), intensity=intensity)
+
   
   # Función para crear la imagen
   def glFinish(self, filename):
