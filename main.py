@@ -23,7 +23,7 @@ render.lookAt(V3(-0.5,0,20), V3(0,0,0), V3(0,1,0))
 
 
 #box
-render.glObjModel2('Cardboard.obj',translate=(0,0.7,0), scale=(0.4,0.4,0.4), rotate=(2.5,0,0), texture=caja)
+render.glObjModel2('Cardboard.obj',translate=(0,0.9,2.7), scale=(0.5,0.5,0.5), rotate=(2.9,0,-0.5), texture=caja)
 #cookie
 render.glObjModel2('cookie.obj',translate=(0.6,0.8,0), scale=(0.29,0.29,0.29), rotate=(2,-2,0), texture=cookie)
 #oreo
