@@ -22,18 +22,20 @@ render.lookAt(V3(-0.5,0,20), V3(0,0,0), V3(0,1,0))
 
 
 #box
-render.glObjModel2('Cardboard.obj',translate=(-0.1,0.9,0), scale=(0.6,0.6,0.6), rotate=(2.8,0,-0.4), texture=caja)
+render.glObjModel2('Cardboard.obj',translate=(-0.1,0.8,0), scale=(0.66,0.66,0.66), rotate=(2.8,0,-0.4), texture=caja)
 #cookie
-render.glObjModel2('cookie.obj',translate=(0.5,0.4,0.1), scale=(0.29,0.29,0.29), rotate=(2,-4,0), texture=cookie)
+render.glObjModel2('cookie.obj',translate=(0.5,0.4,0.01), scale=(0.29,0.29,0.29), rotate=(2,-4,0), texture=cookie)
 #oreo
-render.glObjModel2('oreo.obj',translate=(-0.1,-0.1,0.5), scale=(0.01,0.01,0.01), rotate=(1,-4,0), texture=oreo)
+render.glObjModel2('oreo.obj',translate=(-0.1,-0.1,0.1), scale=(0.01,0.01,0.01), rotate=(1,-4,0), texture=oreo)
 #hormiga
 render.glObjModel('formica.obj',translate=(0.4,-0.55,0.1), scale=(0.2,0.2,0.2), rotate=(1,-4,0), texture=hormiga)
 #hormiga2
-render.glObjModel('formica.obj',translate=(-0.5,-0.4,0.1), scale=(0.2,0.2,0.2), rotate=(1,-6,0), texture=hormiga)
+render.glObjModel('formica.obj',translate=(-0.8,-0.4,0.1), scale=(0.2,0.2,0.2), rotate=(1,-6,0), texture=hormiga)
+#hormiga3
+render.glObjModel('formica.obj',translate=(-0.5,-0.9,0.1), scale=(0.2,0.2,0.2), rotate=(0.9,-5,0), texture=hormiga)
 
 #tierra
-render.glObjModel2('plano.obj',translate=(-1,0,-6), scale=(0.3,0.3,0.3), rotate=(0,0,0), texture=tierra)
+render.glObjModel2('plano.obj',translate=(-1,0,-6), scale=(0.4,0.3,0.3), rotate=(0,0,0), texture=tierra)
 
 #imagen final
 render.glFinish('out.bmp')
